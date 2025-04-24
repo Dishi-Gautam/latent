@@ -1,0 +1,59 @@
+/* General styling for the dark theme */
+.App {
+  text-align: center;
+  padding: 30px;
+  font-family: 'Arial', sans-serif;
+  background-color: #2e2e2e; /* Dark background */
+  color: #f0f0f0; /* Light text */
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #e6e6e6; /* Lighter text for the header */
+}
+
+.admins-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-card {
+  background-color: #3c3c3c; /* Darker card background */
+  border-radius: 10px;
+  padding: 20px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  transition: transform 0.2s;
+  text-align: center;
+}
+
+.admin-card:hover {
+  transform: scale(1.05);
+  background-color: #4a4a4a; /* Slightly lighter on hover */
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #ff4f5f; /* Red button background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #e43a3a; 
+}
+
+.rejection-cross {
+  margin-top: 15px;
+}
+
+.big-cross {
+  font-size: 50px;
+  color: #ff0000; 
+}
