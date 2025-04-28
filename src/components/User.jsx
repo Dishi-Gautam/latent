@@ -1,31 +1,28 @@
 import React from 'react';
+import './User.css';
 
-const admins = [
-  { id: 1, name: 'Admin 1' },
-  { id: 2, name: 'Admin 2' },
-  { id: 3, name: 'Admin 3' },
-  { id: 4, name: 'Admin 4' },
-];
-
-const UserView = ({ rejectedAdmins }) => {
+const User = ({ rejectedAdmins = [] }) => {
   return (
-    <div>
-      <h1>User</h1>
-      <div className="admins-container">
-        {admins.map((admin) => (
-          <div key={admin.id} className="admin-card">
-          <h2>Rejected By:</h2>
-            <h3>{admin.name}</h3>
-            {rejectedAdmins.includes(admin.id) && (
-              <div className="rejection-cross">
-                <span className="big-cross">✖</span>
-              </div>
-            )}
+    <div className="user-profile">
+      <div className="crosses-container">
+        {[1, 2, 3, 4].map((id) => (
+          <div key={id} className="cross-wrapper">
+            <div className={`cross ${rejectedAdmins.includes(id) ? 'rejected' : ''}`}>✖</div>
+            <div className={`admin-name ${rejectedAdmins.includes(id) ? 'rejected' : ''}`}>
+              Admin {id}
+            </div>
           </div>
         ))}
+      </div>
+      <div className="banner">
+        <img 
+          src="https://i.imgur.com/zZ4CwSp.png" 
+          alt="Talent Show Banner"
+          className="banner-image" 
+        />
       </div>
     </div>
   );
 };
 
-export default UserView;
+export default User;
