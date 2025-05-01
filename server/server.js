@@ -1,34 +1,39 @@
-const express = require("express");
-const http = require("http");
-const cors = require("cors");
-const { Server } = require("socket.io");
+const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
+const cors = require('cors');
 
 const app = express();
-app.use(cors());
-
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*", // allow all origins or specify your frontend URL here
-    methods: ["GET", "POST"],
+    origin: '*',
+    methods: ['GET', 'POST'],
   },
 });
 
-io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
 
-  socket.on("rejected", (data) => {
-    console.log("Rejection received:", data);
-    // Send to all clients including the sender
-    io.emit("rejected", data);
+  socket.on('buzz', () => {
+    socket.broadcast.emit('buzz');
   });
 
-  socket.on("disconnect", () => {
-    console.log("A user disconnected:", socket.id);
+  socket.on('rejected', ({ adminId }) => {
+    io.emit('rejected', { adminId });
+  });
+
+  socket.on('unreject', ({ adminId }) => {
+    io.emit('unreject', { adminId });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
   });
 });
 
-server.listen(5000, () => {
-  console.log("Server running on port 5000");
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
