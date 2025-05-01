@@ -1,22 +1,39 @@
 const express = require('express');
 const http = require('http');
-const socketIo = require('socket.io');
+const { Server } = require('socket.io');
+const cors = require('cors');
+
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
-app.use(express.static('public'));
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+});
+
 io.on('connection', (socket) => {
-  console.log('A user connected');t
+  console.log('User connected:', socket.id);
+
   socket.on('buzz', () => {
-  //  console.log('Buzz triggered');
-    io.emit('buzz');  
+    socket.broadcast.emit('buzz');
+  });
+
+  socket.on('rejected', ({ adminId }) => {
+    io.emit('rejected', { adminId });
+  });
+
+  socket.on('unreject', ({ adminId }) => {
+    io.emit('unreject', { adminId });
   });
 
   socket.on('disconnect', () => {
-    console.log('A user disconnected');
+    console.log('User disconnected:', socket.id);
   });
 });
 
-server.listen(4000, () => {
-  console.log('Server running on http://localhost:4000');
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
