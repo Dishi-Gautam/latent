@@ -1,72 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-import io from 'socket.io-client';
-import AdminPanel from './components/Admin';
-import UserView from './components/User';
+import React from 'react';
+import useSound from 'use-sound';
+import './Admin.css';
+import buzzerSound from '../assets/buzzer.wav';
 
-const socket = io('https://latent-5t7k.onrender.com'); // your backend
+const admins = [
+  { id: 1, name: 'Shantanu' },
+  { id: 2, name: 'Sai' },
+  { id: 3, name: 'Aryan' },
+  { id: 4, name: 'Adarsh' },
+];
 
-const App = () => {
-  const [rejectedAdmins, setRejectedAdmins] = useState([]);
-  const [buzz, setBuzz] = useState(false);
+const AdminPanel = ({ rejectedAdmins, setRejectedAdmins, handleBuzzClick, socket }) => {
+  const [playBeep] = useSound(buzzerSound);
 
-  useEffect(() => {
-    socket.on('buzz', () => {
-      setBuzz(true);
-      setTimeout(() => setBuzz(false), 2000);
-    });
-
-    socket.on('rejected', ({ adminId }) => {
-      setRejectedAdmins(prev => {
-        if (!prev.includes(adminId)) return [...prev, adminId];
-        return prev;
-      });
-    });
-
-    socket.on('unreject', ({ adminId }) => {
-      setRejectedAdmins(prev => prev.filter(id => id !== adminId));
-    });
-
-    return () => {
-      socket.off('buzz');
-      socket.off('rejected');
-      socket.off('unreject');
-    };
-  }, []);
-
-  const handleBuzzClick = () => {
-    socket.emit('buzz');
+  const handleToggleRejection = (admin) => {
+    if (!rejectedAdmins.includes(admin.id)) {
+      playBeep();
+      socket.emit('rejected', { adminId: admin.id });  // Emit rejection event
+    } else {
+      socket.emit('unreject', { adminId: admin.id });  // Emit unrejection event
+    }
   };
 
   return (
-    <div className="App">
-      <nav className="navbar">
-        <Link to="/">Admin Panel</Link>
-        <Link to="/user">User View</Link>
-      </nav>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <AdminPanel
-              rejectedAdmins={rejectedAdmins}
-              handleBuzzClick={handleBuzzClick}
-              socket={socket}
-            />
-          }
-        />
-        <Route
-          path="/user"
-          element={
-            <UserView
-              rejectedAdmins={rejectedAdmins}
-              buzz={buzz}
-            />
-          }
-        />
-      </Routes>
+    <div className="admin-panel">
+      <h1>Admin Panel</h1>
+      <div className="admins-container">
+        {admins.map((admin) => {
+          const isRejected = rejectedAdmins.includes(admin.id);
+          return (
+            <div key={admin.id} className={`admin-card ${isRejected ? 'rejected' : ''}`}>
+              <h3>{admin.name}</h3>
+              <button onClick={() => handleToggleRejection(admin)}>
+                {isRejected ? 'Cancel Rejection' : 'Reject User'}
+              </button>
+              {isRejected && <div className="rejection-cross">✖</div>}
+            </div>
+          );
+        })}
+      </div>
+      <button onClick={handleBuzzClick}>Buzz</button>
     </div>
   );
 };
 
-export default App;
+export default AdminPanel;
