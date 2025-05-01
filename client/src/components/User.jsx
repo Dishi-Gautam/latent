@@ -1,7 +1,7 @@
 import React from 'react';
 import './User.css';
 
-const User = ({ rejectedAdmins = [], buzz }) => {
+const UserView = ({ rejectedAdmins, buzz }) => {
   return (
     <div className="user-profile">
       <h1 className="user-heading">Live Rejection Panel</h1>
@@ -20,4 +20,4 @@ const User = ({ rejectedAdmins = [], buzz }) => {
   );
 };
 
-export default User;
+export default UserView;

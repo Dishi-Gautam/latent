@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import AdminPanel from './components/Admin';
 import UserView from './components/User';
 
-const socket = io('https://latent-5t7k.onrender.com'); // your backend
+const socket = io('https://latent-5t7k.onrender.com'); // your backend URL
 
 const App = () => {
   const [rejectedAdmins, setRejectedAdmins] = useState([]);
@@ -13,7 +13,7 @@ const App = () => {
   useEffect(() => {
     socket.on('buzz', () => {
       setBuzz(true);
-      setTimeout(() => setBuzz(false), 2000);
+      setTimeout(() => setBuzz(false), 2000);  // Reset after 2 seconds
     });
 
     socket.on('rejected', ({ adminId }) => {
