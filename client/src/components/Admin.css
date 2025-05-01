@@ -47,10 +47,7 @@ body {
 }
 .admin-heading{
   padding: 10px;
-  font-family: "Single Day", cursive;
-  font-weight: 800;
   font-size: larger;
-  font-style: normal;
 }
 
 .admin-card {

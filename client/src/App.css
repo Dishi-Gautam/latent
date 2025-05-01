@@ -1,6 +1,8 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Single Day", cursive;
+  font-weight: 800;
+  font-style: normal;
   background-color: #1e1e1e;
   color: white;
 }

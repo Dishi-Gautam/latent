@@ -15,7 +15,7 @@ const User = ({ rejectedAdmins = [] }) => {
         {admins.map(({ id, name }) => (
           <div key={id} className="cross-wrapper">
             <div className={`cross ${rejectedAdmins.includes(id) ? 'rejected' : ''}`}>✖</div>
-            <div className={`admin ${rejectedAdmins.includes(id) ? 'rejected' : ''}`}>
+            <div className={`admin ${rejectedAdmins.includes(id) ? 'rejected' : ''}`} >
               {name}
             </div>
           </div>
