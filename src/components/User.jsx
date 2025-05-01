@@ -14,13 +14,8 @@ const User = ({ rejectedAdmins = [] }) => {
           </div>
         ))}
       </div>
-      <div className="banner">
-        <img 
-          src="https://i.imgur.com/zZ4CwSp.png" 
-          alt="Talent Show Banner"
-          className="banner-image" 
-        />
-      </div>
+    
+    
     </div>
   );
 };

@@ -4,9 +4,39 @@
   border-radius: 10px;
   background-color: #1a1a1a;
   box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
+  height:400px;
 }
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(ellipse at center, #1a1a1a 0%, #0d0d0d 100%);
+  background-size: cover;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Optional: Star-like twinkle effect */
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: starTwinkle 2s infinite;
+  opacity: 0.3;
+}
+
+/* Use JS or HTML to add multiple .star divs in random positions */
+
 
 .admins-container {
   display: flex;
@@ -14,6 +44,13 @@
   gap: 1.5rem;
   flex-wrap: wrap;
   margin-top: 1.5rem;
+}
+.admin-heading{
+  padding: 10px;
+  font-family: "Single Day", cursive;
+  font-weight: 800;
+  font-size: larger;
+  font-style: normal;
 }
 
 .admin-card {

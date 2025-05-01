@@ -29,7 +29,9 @@ const Admin = ({ rejectedAdmins, setRejectedAdmins }) => {
   
   return (
     <div className="admin-panel">
-      <h1>Admin Rejection Panel</h1>
+     <div className='admin-heading' > <h1>JSCOP 7.0</h1>
+     <h2>Jaypee's Got Talent 2.0</h2>
+     </div>
       <div className="admins-container">
         {admins.map((admin) => {
           const isRejected = rejectedAdmins.includes(admin.id);

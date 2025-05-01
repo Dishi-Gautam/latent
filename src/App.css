@@ -16,6 +16,10 @@ body {
   gap: 2rem;
   background-color: #2e2e2e;
   padding: 1rem;
+  font-size: x-large;
+    font-family: "Single Day", cursive;
+    font-weight: 800;
+    font-style: normal;
   margin-bottom: 2rem;
 }
 
