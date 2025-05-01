@@ -3,7 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import AdminPanel from './components/Admin';
 import UserView from './components/User';
-const socket = io('http://localhost:4000'); 
+const socket = io('https://latent-5t7k.onrender.com'); 
 const App = () => {
   const [rejectedAdmins, setRejectedAdmins] = useState([]);
   const [buzz, setBuzz] = useState(false);
