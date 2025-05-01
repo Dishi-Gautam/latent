@@ -1,3 +1,4 @@
+
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -5,6 +6,7 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
+
 const io = new Server(server, {
   cors: {
     origin: '*',
@@ -16,15 +18,15 @@ io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
 
   socket.on('buzz', () => {
-    socket.broadcast.emit('buzz');  // Broadcasting the buzz event to all clients
+    socket.broadcast.emit('buzz');
   });
 
   socket.on('rejected', ({ adminId }) => {
-    io.emit('rejected', { adminId });  // Broadcast rejection to all clients
+    io.emit('rejected', { adminId });
   });
 
   socket.on('unreject', ({ adminId }) => {
-    io.emit('unreject', { adminId });  // Broadcast unrejection to all clients
+    io.emit('unreject', { adminId });
   });
 
   socket.on('disconnect', () => {

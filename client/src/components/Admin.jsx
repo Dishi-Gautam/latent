@@ -3,30 +3,38 @@ import useSound from 'use-sound';
 import './Admin.css';
 import buzzerSound from '../assets/buzzer.wav';
 
-const socket = io('https://latent-5t7k.onrender.com');
+const admins = [
+  { id: 1, name: 'Shantanu' },
+  { id: 2, name: 'Sai' },
+  { id: 3, name: 'Aryan' },
+  { id: 4, name: 'Adarsh' },
+];
 
-const AdminPanel = ({ rejectedAdmins, setRejectedAdmins, handleBuzzClick, socket }) => {
+const Admin = ({ rejectedAdmins, socket }) => {
   const [playBeep] = useSound(buzzerSound);
 
-  const handleToggleRejection = (admin) => {
-    if (!rejectedAdmins.includes(admin.id)) {
-      playBeep();
-      socket.emit('rejected', { adminId: admin.id });  // Emit rejection event
+  const handleClick = (adminId) => {
+    if (rejectedAdmins.includes(adminId)) {
+      socket.emit('unreject', { adminId });
     } else {
-      socket.emit('unreject', { adminId: admin.id });  // Emit unrejection event
+      playBeep();
+      socket.emit('rejected', { adminId });
     }
   };
 
   return (
     <div className="admin-panel">
-      <h1>Admin Panel</h1>
+      <div className='admin-heading'>
+        <h1>JSCOP 7.0</h1>
+        <h2>Jaypee's Got Talent 2.0</h2>
+      </div>
       <div className="admins-container">
         {admins.map((admin) => {
           const isRejected = rejectedAdmins.includes(admin.id);
           return (
             <div key={admin.id} className={`admin-card ${isRejected ? 'rejected' : ''}`}>
               <h3>{admin.name}</h3>
-              <button onClick={() => handleToggleRejection(admin)}>
+              <button onClick={() => handleClick(admin.id)}>
                 {isRejected ? 'Cancel Rejection' : 'Reject User'}
               </button>
               {isRejected && <div className="rejection-cross">✖</div>}
@@ -34,9 +42,8 @@ const AdminPanel = ({ rejectedAdmins, setRejectedAdmins, handleBuzzClick, socket
           );
         })}
       </div>
-      <button onClick={handleBuzzClick}>Buzz</button>
     </div>
   );
 };
 
-export default AdminPanel;
+export default Admin;
