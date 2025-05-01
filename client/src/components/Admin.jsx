@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import AdminPanel from './components/Admin';
 import UserView from './components/User';
 
-const socket = io('https://latent-5t7k.onrender.com'); // your backend
+const socket = io('https://latent-5t7k.onrender.com');
 
 const App = () => {
   const [rejectedAdmins, setRejectedAdmins] = useState([]);
