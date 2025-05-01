@@ -1,22 +1,38 @@
 const express = require('express');
 const http = require('http');
-const socketIo = require('socket.io');
+const cors = require('cors');
+const { Server } = require('socket.io');
+
 const app = express();
+app.use(cors());
+
 const server = http.createServer(app);
-const io = socketIo(server);
-app.use(express.static('public'));
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+  },
+});
+
+let rejectedAdmins = [];
+
 io.on('connection', (socket) => {
-  console.log('A user connected');t
-  socket.on('buzz', () => {
-  //  console.log('Buzz triggered');
-    io.emit('buzz');  
+  console.log('Client connected');
+
+  socket.emit('updateRejections', rejectedAdmins);
+
+  socket.on('reject', (adminId) => {
+    if (!rejectedAdmins.includes(adminId)) {
+      rejectedAdmins.push(adminId);
+    }
+    io.emit('updateRejections', rejectedAdmins);
   });
 
-  socket.on('disconnect', () => {
-    console.log('A user disconnected');
+  socket.on('reset', () => {
+    rejectedAdmins = [];
+    io.emit('updateRejections', rejectedAdmins);
   });
 });
 
 server.listen(4000, () => {
-  console.log('Server running on http://localhost:4000');
+  console.log('Server running on port 4000');
 });
