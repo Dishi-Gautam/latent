@@ -5,11 +5,15 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
-app.use(cors());  
+app.use(cors()); 
+
+process.env.SERVER_URI
 
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173', 
+    // origin: '*', 
+    origin: 'https://latent-ashen.vercel.app',
+    // origin: process.env.SERVER_URI,
     methods: ['GET', 'POST'],
   },
 });
