@@ -4,7 +4,7 @@ import Admin from './components/Admin';
 import User from './components/User';
 
 // Connect to the server
-const socket = io.connect('http://localhost:3001');
+const socket = io.connect('https://latent-xqak.onrender.com');
 
 const App = () => {
   const [rejectedAdmins, setRejectedAdmins] = useState([]);
