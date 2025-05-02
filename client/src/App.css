@@ -10,41 +10,30 @@ body {
 .App {
   text-align: center;
   padding: 20px;
-}
-
-.navbar {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  background-color: #2e2e2e;
-  padding: 1rem;
-  font-size: x-large;
-    font-family: "Single Day", cursive;
-    font-weight: 800;
-    font-style: normal;
-  margin-bottom: 2rem;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .admins-container {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
   flex-wrap: wrap;
+  padding: 0 10px;
 }
 
 .admin-card {
   background-color: #333;
   border-radius: 10px;
   padding: 20px;
-  width: 150px;
+  width: 200px;
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.admin-card:hover {
+  transform: scale(1.03);
 }
 
 button {
@@ -55,7 +44,7 @@ button {
   margin-top: 10px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -65,7 +54,9 @@ button:hover {
 
 .rejection-cross {
   margin-top: 15px;
-}
+  font-size: 1.5rem;
+  color: red;
+} 
 
 .big-cross {
   font-size: 2rem;
@@ -81,6 +72,73 @@ button:hover {
   margin: 10px auto;
   padding: 10px;
   border-radius: 8px;
-  width: 250px;
+  width: 90%;
+  max-width: 300px;
   box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+  padding: 10px 20px;
+  background-color: #ff4d4d;
+  color: white;
+  font-family: "Single Day", cursive;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(255, 77, 77, 0.3);
+  margin: 1rem;
+}
+
+.toggle-button:hover {
+  background-color: #e60000;
+  transform: scale(1.05);
+}
+
+.toggle-button:active {
+  background-color: #cc0000;
+  transform: scale(1);
+}
+
+/* 🔁 RESPONSIVE STYLES */
+@media (max-width: 768px) {
+  .navbar {
+    font-size: 1.3rem;
+    gap: 1.2rem;
+  }
+
+  .admin-card {
+    width: 45%;
+    padding: 15px;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+
+  .toggle-button {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-card {
+    width: 90%;
+  }
+
+  .navbar {
+    font-size: 1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .toggle-button {
+    font-size: 0.9rem;
+    padding: 7px 14px;
+  }
 }

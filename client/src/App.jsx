@@ -1,70 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
 import io from 'socket.io-client';
-import AdminPanel from './components/Admin';
-import UserView from './components/User';
+import Admin from './components/Admin';
+import User from './components/User';
 
-const socket = io('https://latent-5t7k.onrender.com');
+// Connect to the server
+const socket = io.connect('http://localhost:3001');
 
 const App = () => {
   const [rejectedAdmins, setRejectedAdmins] = useState([]);
-  const [buzz, setBuzz] = useState(false);
+  const [isAdminView, setIsAdminView] = useState(true); // State to toggle between views
 
   useEffect(() => {
-    socket.on('buzz', () => {
-      setBuzz(true);
-      setTimeout(() => setBuzz(false), 2000);
-    });
-
+    // Listen for rejected events
     socket.on('rejected', ({ adminId }) => {
-      setRejectedAdmins(prev => {
-        if (!prev.includes(adminId)) return [...prev, adminId];
-        return prev;
-      });
+      setRejectedAdmins((prev) => [...new Set([...prev, adminId])]);
     });
 
+    // Listen for unrejected events
     socket.on('unreject', ({ adminId }) => {
-      setRejectedAdmins(prev => prev.filter(id => id !== adminId));
+      setRejectedAdmins((prev) => prev.filter((id) => id !== adminId));
     });
 
+    // Cleanup the socket listeners when component unmounts
     return () => {
-      socket.off('buzz');
       socket.off('rejected');
       socket.off('unreject');
     };
   }, []);
 
-  const handleBuzzClick = () => {
-    socket.emit('buzz');
-  };
-
   return (
-    <div className="App">
-      <nav className="navbar">
-        <Link to="/">Admin Panel</Link>
-        <Link to="/user">User View</Link>
-      </nav>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <AdminPanel
-              rejectedAdmins={rejectedAdmins}
-              handleBuzzClick={handleBuzzClick}
-              socket={socket}
-            />
-          }
-        />
-        <Route
-          path="/user"
-          element={
-            <UserView
-              rejectedAdmins={rejectedAdmins}
-              buzz={buzz}
-            />
-          }
-        />
-      </Routes>
+    <div>
+  <nav className="navbar">
+  <a
+    href="#"
+    className={isAdminView ? "active" : ""}
+    onClick={() => setIsAdminView(true)}
+  >
+    Admin Panel
+  </a>
+  <a
+    href="#"
+    className={!isAdminView ? "active" : ""}
+    onClick={() => setIsAdminView(false)}
+  >
+    User View
+  </a>
+</nav>
+
+
+
+      {/* Conditionally render Admin or User */}
+      {isAdminView ? (
+        <Admin rejectedAdmins={rejectedAdmins} socket={socket} />
+      ) : (
+        <User rejectedAdmins={rejectedAdmins} />
+      )}
     </div>
   );
 };

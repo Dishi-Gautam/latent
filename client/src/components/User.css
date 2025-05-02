@@ -6,11 +6,12 @@
   border: 2px solid #ff4d4d;
   padding: 1rem;
   border-radius: 10px;
-  background-color: #1a1a1a;
   box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
   max-width: 1000px;
   margin: 0 auto;
-  height:400px;
+  margin-top: 5rem;
+  height: auto;
+  width: 90%;
 }
 
 /* Navbar */
@@ -20,46 +21,43 @@
   background-color: #2a2a2a;
   display: flex;
   justify-content: center;
-  font-size: 12px; /* smaller text */
+  font-size: 2rem;
   font-weight: bold;
   color: white;
+  flex-wrap: wrap;
+  gap: 2rem; 
 }
 
-/* Banner
-.banner {
-  width: 80%;  Image width control 
-  margin-top: 20px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  position: relative;
-} */
+.navbar a {
+  color: red;
+  text-decoration: none;
+}
 
-/* .banner-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: center;
-} */
 
 /* Crosses */
 .crosses-container {
   display: flex;
-  justify-content: space-between; /* Same spacing */
+  justify-content: space-between;
   align-items: center;
-  width: 80%; /* SAME as banner width */
-  padding: 10px 40px;
+  flex-wrap: wrap;
+  width: 90%;
+  max-width: 900px;
+  font-size: 2rem;
+  padding: 10px 20px;
   margin-top: 20px;
+  gap: 1rem;
 }
 
 .cross-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1 1 150px;
+  min-width: 100px;
 }
 
 .cross {
-  font-size: 120px;
+  font-size: 100px;
   color: #333;
   font-weight: bold;
   transition: all 0.3s ease;
@@ -73,8 +71,8 @@
 
 .admin-name {
   margin-top: 5px;
-  color: #333;
-  font-size: 16px;
+  color: #aaa;
+  font-size: 2rem;
   font-weight: bold;
   text-transform: uppercase;
   transition: all 0.3s ease;
@@ -89,4 +87,40 @@
   0% { text-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
   50% { text-shadow: 0 0 35px rgba(255, 0, 0, 0.8); }
   100% { text-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+}
+
+/* ✅ Responsive tweaks */
+@media (max-width: 768px) {
+  .cross {
+    font-size: 80px;
+  }
+
+  .admin-name {
+    font-size: 0.9rem;
+  }
+
+  .navbar {
+    font-size: 0.9rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-profile {
+    padding: 1rem;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .cross {
+    font-size: 60px;
+  }
+
+  .admin-name {
+    font-size: 0.8rem;
+  }
+
+  .cross-wrapper {
+    flex: 1 1 100px;
+  }
 }

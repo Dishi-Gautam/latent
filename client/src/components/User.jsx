@@ -1,22 +1,35 @@
-;
-import React from 'react';
+import React, { useEffect } from 'react';
 import './User.css';
+import useSound from 'use-sound';
+import buzzSound from '../assets/buzzer.wav';
 
-const User = ({ rejectedAdmins = [], buzz }) => {
+const admins = [
+  { id: 1, name: 'Shantanu' },
+  { id: 2, name: 'Sai' },
+  { id: 3, name: 'Aryan' },
+  { id: 4, name: 'Adarsh' },
+];
+
+const User = ({ rejectedAdmins = [] }) => {
+  const [playBeep] = useSound(buzzSound);
+
+  useEffect(() => {
+    if (rejectedAdmins.length > 0) playBeep();
+  }, [rejectedAdmins]);
+
   return (
     <div className="user-profile">
       <h1 className="user-heading">Live Rejection Panel</h1>
       <div className="crosses-container">
-        {[1, 2, 3, 4].map((id) => (
+        {admins.map(({ id, name }) => (
           <div key={id} className="cross-wrapper">
             <div className={`cross ${rejectedAdmins.includes(id) ? 'rejected' : ''}`}>✖</div>
             <div className={`admin ${rejectedAdmins.includes(id) ? 'rejected' : ''}`}>
-              Admin {id}
+              {name}
             </div>
           </div>
         ))}
       </div>
-      {buzz && <div className="buzz-animation">🔴 BUZZ!</div>}
     </div>
   );
 };
