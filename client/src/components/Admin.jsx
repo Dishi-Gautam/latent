@@ -7,7 +7,7 @@ const admins = [
   { id: 1, name: 'Shantanu' },
   { id: 2, name: 'Vaibhav' },
   { id: 3, name: 'Yash' },
-  { id: 4, name: 'Surprise!!' },
+  { id: 4, name: 'Amresh' },
 ];
 
 const Admin = ({ rejectedAdmins, socket }) => {
