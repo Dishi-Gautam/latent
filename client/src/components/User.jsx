@@ -5,9 +5,9 @@ import buzzSound from '../assets/buzzer.wav';
 
 const admins = [
   { id: 1, name: 'Shantanu' },
-  { id: 2, name: 'Sai' },
-  { id: 3, name: 'Aryan' },
-  { id: 4, name: 'Adarsh' },
+  { id: 2, name: 'Vaibhav' },
+  { id: 3, name: 'Yash' },
+  { id: 4, name: 'Surprise !!' },
 ];
 
 const User = ({ rejectedAdmins = [] }) => {
